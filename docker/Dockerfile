@@ -1,6 +1,6 @@
-FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu18.04
-# use an older system (18.04) to avoid opencv incompatibility (issue#3524)
+FROM nvidia/cuda:10.1-cudnn7-devel
 
+RUN mkdir -p /data/Paper_dataset/carpk -p /home/centernet2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
 	python3-opencv ca-certificates python3-dev git wget sudo ninja-build
@@ -21,7 +21,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
 # install dependencies
 # See https://pytorch.org/ for other options if you use a different version of CUDA
 RUN pip install --user tensorboard cmake   # cmake from apt-get is too old
-RUN pip install --user torch==1.10 torchvision==0.11.1 -f https://download.pytorch.org/whl/cu111/torch_stable.html
+RUN pip install --user torch==1.8 torchvision==0.9 -f https://download.pytorch.org/whl/cu101/torch_stable.html
 
 RUN pip install --user 'git+https://github.com/facebookresearch/fvcore'
 # install detectron2
@@ -32,12 +32,19 @@ ENV FORCE_CUDA="1"
 # because inside `docker build`, there is no way to tell which architecture will be used.
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
+COPY coco_evaluation.py /home/appuser/detectron2_repo/detectron2/evaluation/coco_evaluation.py
 
 RUN pip install --user -e detectron2_repo
 
 # Set a fixed model cache directory.
 ENV FVCORE_CACHE="/tmp"
-WORKDIR /home/appuser/detectron2_repo
+RUN sudo apt-get update
+RUN sudo apt-get install locales
+ENV LANGUAGE=ko_KR.UTF-8
+ENV LANG=ko_KR.UTF-8
+RUN sudo locale-gen ko_KR ko_KR.UTF-8
+RUN sudo update-locale LANG=ko_KR.UTF-8
+WORKDIR /home/centernet2/projects/CenterNet2/
 
 # run detectron2 under user "appuser":
 # wget http://images.cocodataset.org/val2017/000000439715.jpg -O input.jpg

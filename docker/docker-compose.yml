@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
       args:
         USER_ID: ${USER_ID:-1000}
+    stdin_open: true
+    tty: true
     deploy:
       resources:
         reservations:
@@ -18,9 +20,18 @@ services:
       stack: 67108864
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      - /data/Paper_dataset/pill_test/:/data/Paper_dataset/pill_test/
+      - /home/ssangkyu/Documents/CenterNet2/:/home/centernet2/
+#      - /home/server1/workdir/all_dataset/Counter/pill/images/:/data/Paper_dataset/
+#      - /home/server1/workdir/all_dataset/Counter/pill/:/data/Paper_dataset/
+#      - /home/server1/workdir/all_dataset/Counter/sku110k/sku110k/images/:/data/Paper_dataset/
+#      - /home/server1/workdir/all_dataset/Counter/CBC/:/data/Paper_dataset/
+#      - /home/server1/workdir/all_dataset/Counter/carpk:/data/Paper_dataset/carpk
+#      - /home/server1/workdir/project_ing/Counter/centernet2:/home/centernet2
+
     environment:
-      - DISPLAY=$DISPLAY
+      - DISPLAY=unix$DISPLAY
       - NVIDIA_VISIBLE_DEVICES=all
     # Uncomment with proper source to access webcam from docker
-    # devices: 
-    #   - /dev/video0:/dev/video0
+#    devices:
+#      - /dev/video0:/dev/video0

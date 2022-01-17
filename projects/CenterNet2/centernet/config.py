@@ -4,7 +4,7 @@ def add_centernet_config(cfg):
     _C = cfg
 
     _C.MODEL.CENTERNET = CN()
-    _C.MODEL.CENTERNET.NUM_CLASSES = 80
+    _C.MODEL.CENTERNET.NUM_CLASSES = 1
     _C.MODEL.CENTERNET.IN_FEATURES = ["p3", "p4", "p5", "p6", "p7"]
     _C.MODEL.CENTERNET.FPN_STRIDES = [8, 16, 32, 64, 128]
     _C.MODEL.CENTERNET.PRIOR_PROB = 0.01
@@ -78,10 +78,13 @@ def add_centernet_config(cfg):
     _C.INPUT.TEST_SIZE = 640
     _C.INPUT.SCALE_RANGE = (0.1, 2.)
     # 'default' for fixed short/ long edge, 'square' for max size=INPUT.SIZE
-    _C.INPUT.TEST_INPUT_TYPE = 'default' 
-    
-    _C.DEBUG = False
-    _C.SAVE_DEBUG = False
+    _C.INPUT.TEST_INPUT_TYPE = 'default'
+
+    _C.DATASETS.TRAINPATH = None
+    _C.DATASETS.TESTPATH = None
+
+    _C.DEBUG = True
+    _C.SAVE_DEBUG = True
     _C.SAVE_PTH = False
     _C.VIS_THRESH = 0.3
-    _C.DEBUG_SHOW_NAME = False
+    _C.DEBUG_SHOW_NAME = True

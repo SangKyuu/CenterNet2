@@ -5,7 +5,7 @@ MODEL:
   BIFPN:
     NUM_BIFPN: 7
     OUT_CHANNELS: 288
-  WEIGHTS: "output/r2_101.pkl"
+  WEIGHTS: "/home/centernet2/output/inference_dense_test_2020/model_final.pth"
   RESNETS:
     DEPTH: 101
     WIDTH_PER_GROUP: 26
@@ -14,23 +14,34 @@ MODEL:
   PIXEL_MEAN: [123.675, 116.280, 103.530]
   PIXEL_STD: [58.395, 57.12, 57.375]
   CENTERNET:
+    PRE_NMS_TOPK_TRAIN: 4000
+    POST_NMS_TOPK_TRAIN: 2000
+    PRE_NMS_TOPK_TEST: 4000
+    POST_NMS_TOPK_TEST: 2000
     USE_DEFORMABLE: True
   ROI_HEADS:
     IN_FEATURES: ["p3", "p4"]
 TEST:
-  EVAL_PERIOD: 7500
+  EVAL_PERIOD: 40
+  DETECTIONS_PER_IMAGE: 1000
 SOLVER:
-  MAX_ITER: 180000
-  CHECKPOINT_PERIOD: 7500
+  MAX_ITER: 1125
+  CHECKPOINT_PERIOD: 40
+  WARMUP_ITERS: 500
+  WARMUP_FACTOR: 0.00025
   LR_SCHEDULER_NAME: "WarmupCosineLR"
-  BASE_LR: 0.04
-  IMS_PER_BATCH: 32
+  BASE_LR: 0.01
+  IMS_PER_BATCH: 8
+  RESET_ITER: True
 DATASETS:
-  TRAIN: "('coco_2017_train', 'coco_un_yolov4_55_0.5')"
+  TRAIN: "('dense_train_2021',)"
+  TEST: "('dense_test_99',)"
+  TRAINPATH: "/home/centernet2/datasets/dense_train_2021.txt"
+  TESTPATH: "/home/centernet2/datasets/dense_test_99.txt"
 INPUT:
   FORMAT: RGB
   CUSTOM_AUG: EfficientDetResizeCrop
-  TRAIN_SIZE: 1280
-  TEST_SIZE: 1560
-  TEST_INPUT_TYPE: 'square'
-  
+  TRAIN_SIZE: 640
+  TEST_SIZE: 640
+  TEST_INPUT_TYPE: 'rectangle'
+
