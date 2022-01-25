@@ -150,11 +150,11 @@ def bind_images(predictions, gt_dict, confidence_th=0.5, rectangle=False, map_gt
 
 
 if __name__ == '__main__':
-    BASEPATH = '../../output/CenterNet2_R2-101-DCN-BiFPN_4x+4x_1560_ST/inference_dense_test_99/'
+    BASEPATH = '../../output/CenterNet2_R2-101-DCN-BiFPN_4x+4x_1560_ST/inference_dense_test_total/'
     with open(BASEPATH+'coco_instances_results.json', 'r') as f:
         predicted_data = json.load(f)
 
-    with open(BASEPATH+'dense_test_99_coco_format.json', 'r') as f:
+    with open(BASEPATH+'dense_test_total_coco_format.json', 'r') as f:
         gt_data = json.load(f)
 
     TEST_RESULT_PATH = BASEPATH + 'test_result/'

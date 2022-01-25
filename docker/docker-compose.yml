@@ -20,7 +20,7 @@ services:
       stack: 67108864
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
-      - /data/Paper_dataset/pill_test/:/data/Paper_dataset/pill_test/
+      - /data/Paper_dataset/pill_test/aa/:/data/Paper_dataset/pill_test/
       - /home/ssangkyu/Documents/CenterNet2/:/home/centernet2/
 #      - /home/server1/workdir/all_dataset/Counter/pill/images/:/data/Paper_dataset/
 #      - /home/server1/workdir/all_dataset/Counter/pill/:/data/Paper_dataset/

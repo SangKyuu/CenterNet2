@@ -83,8 +83,8 @@ def add_centernet_config(cfg):
     _C.DATASETS.TRAINPATH = None
     _C.DATASETS.TESTPATH = None
 
-    _C.DEBUG = True
-    _C.SAVE_DEBUG = True
+    _C.DEBUG = False
+    _C.SAVE_DEBUG = False
     _C.SAVE_PTH = False
     _C.VIS_THRESH = 0.3
-    _C.DEBUG_SHOW_NAME = True
+    _C.DEBUG_SHOW_NAME = False

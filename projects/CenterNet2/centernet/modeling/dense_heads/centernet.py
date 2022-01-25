@@ -18,7 +18,7 @@ from detectron2.config import configurable
 from ..layers.heatmap_focal_loss import heatmap_focal_loss_jit
 from ..layers.heatmap_focal_loss import binary_heatmap_focal_loss_jit
 from ..layers.iou_loss import IOULoss
-from ..layers.ml_nms import ml_nms
+from ..layers.ml_nms import ml_nms, sk_nms
 from ..debug import debug_train, debug_test
 from .utils import reduce_sum, _transpose
 from .centernet_head import CenterNetHead
@@ -712,6 +712,7 @@ class CenterNet(nn.Module):
             nms_thresh = self.nms_thresh_train if self.training else \
                 self.nms_thresh_test
             result = ml_nms(boxlists[i], nms_thresh) if nms else boxlists[i]
+            # result = sk_nms(boxlists[i], nms_thresh) if nms else boxlists[i]
             if self.debug:
                 print('#proposals before nms', len(boxlists[i]))
                 print('#proposals after nms', len(result))

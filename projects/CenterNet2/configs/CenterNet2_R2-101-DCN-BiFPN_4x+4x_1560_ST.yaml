@@ -35,9 +35,9 @@ SOLVER:
   RESET_ITER: True
 DATASETS:
   TRAIN: "('dense_train_2021',)"
-  TEST: "('dense_test_99',)"
+  TEST: "('dense_test_total',)"
   TRAINPATH: "/home/centernet2/datasets/dense_train_2021.txt"
-  TESTPATH: "/home/centernet2/datasets/dense_test_99.txt"
+  TESTPATH: "/home/centernet2/datasets/dense_test_total.txt"
 INPUT:
   FORMAT: RGB
   CUSTOM_AUG: EfficientDetResizeCrop
